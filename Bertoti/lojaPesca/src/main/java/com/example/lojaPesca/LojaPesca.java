@@ -2,32 +2,32 @@ package com.example.lojaPesca;
 
 public class LojaPesca {
 	private final String id;
-	private String marcaLinha;
-	private String mmLinha;
+	private String lineMark;
+	private String mmLine;
 	
-	public LojaPesca(String id, String marcaLinha, String mmLinha) {
+	public LojaPesca(String id, String lineMark, String mmLine) {
 		this.id = id;
-		this.marcaLinha = marcaLinha;
-		this.mmLinha = mmLinha;
+		this.lineMark = lineMark;
+		this.mmLine = mmLine;
 	}
 	
 	public String getId() {
 		return this.id;
 	}
 	
-	public String getMarcaLinha() {
-		return this.marcaLinha;
+	public String getLineMark() {
+		return this.lineMark;
 	}
 	
-	public String getMmLinha() {
-		return this.mmLinha;
+	public String getMmLine() {
+		return this.mmLine;
 	}
 	
-	public void setMarcaLinha(String marcaLinha) {
-		this.marcaLinha = marcaLinha;
+	public void setLineMark(String lineMark) {
+		this.lineMark = lineMark;
 	}
 	
-	public void setMmLinha(String mmLinha) {
-		this.mmLinha = mmLinha;
+	public void setMmLine(String mmLine) {
+		this.mmLine = mmLine;
 	}
 }

@@ -24,11 +24,13 @@ class LojaPescaController {
 		));
 	}
 	
+	// Pega todos os items
 	@GetMapping
 	public Iterable<LojaPesca> getItemsLoja() {
 	    return lojaPesca;
 	}
 	
+	// Pega um item em específico por ID
 	@GetMapping("/{id}") 
 	public Optional<LojaPesca> getItem(@PathVariable String id){
 		for(LojaPesca item: lojaPesca) {
@@ -39,13 +41,27 @@ class LojaPescaController {
 		return Optional.empty();
 	}
 	
+	// Cria um novo item
 	@PostMapping
-	public LojaPesca postItem(@RequestBody LojaPesca lojaPesca) {
-		this.lojaPesca.add(lojaPesca);
-		return lojaPesca;
+	public ResponseEntity<String> postItem(@RequestBody LojaPesca lojaPesca) {
+		if (lojaPesca == null || lojaPesca.getId() == null || lojaPesca.getId().isEmpty()
+			|| lojaPesca.getLineMark() == null || lojaPesca.getLineMark().isEmpty() 
+			|| lojaPesca.getMmLine() == null  || lojaPesca.getMmLine().isEmpty()) 
+		{
+			return new ResponseEntity<>("O corpo do objeto está vazio ou incompleto.", HttpStatus.BAD_REQUEST);
+		}
+		
+		boolean added = this.lojaPesca.add(lojaPesca);
+	
+		if (added ) {
+			return new ResponseEntity<>("Item adicionado com sucesso: " + lojaPesca.getId(), HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>("Erro ao adicionar o item.", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
-	@PutMapping
+	// Atualiza um item
+	@PutMapping("/{id}")
 	ResponseEntity<LojaPesca> putItem(@PathVariable String id, @RequestBody LojaPesca lojaPesca) {
 		int itemIndex = -1;
 		
@@ -53,18 +69,35 @@ class LojaPescaController {
 			if (item.getId().equals(id)) {
 				itemIndex = this.lojaPesca.indexOf(item);
 				this.lojaPesca.set(itemIndex, lojaPesca);
+				return new ResponseEntity<>(lojaPesca, HttpStatus.OK);
 			}
 		}
 		
-		return(itemIndex == -1) ?
-				new ResponseEntity<LojaPesca>(postItem(lojaPesca), HttpStatus.CREATED) : 
-				new ResponseEntity<LojaPesca>(lojaPesca, HttpStatus.OK);
+		this.lojaPesca.add(lojaPesca);
+		return new ResponseEntity<>(lojaPesca, HttpStatus.CREATED);
 	}
 	
+	// Deleta um item por ID
 	@DeleteMapping("/{id}")
-	public void deleteItem(@PathVariable String id) {
-		this.lojaPesca.removeIf(item -> item.getId().equals(id));
+	public ResponseEntity<String> deleteItem(@PathVariable String id) {
+		boolean deleted = this.lojaPesca.removeIf(item -> item.getId().equals(id));
+
+		if (deleted) {
+			return new ResponseEntity<>("Item " + id + " deletado com sucesso!", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Erro ao tentar deletar o item " + id + ".", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
-	
-	
+
+	// Deleta todos os itens
+	@DeleteMapping
+	public ResponseEntity<String> deleteAllItems() {
+		this.lojaPesca.clear();
+		
+		if (this.lojaPesca.isEmpty()) {
+			return new ResponseEntity<>("Todos os itens foram deletados com sucesso.", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Erro ao tentar deletar os itens.", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }
