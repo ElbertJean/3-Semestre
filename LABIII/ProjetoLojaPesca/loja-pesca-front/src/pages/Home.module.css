@@ -1,15 +1,20 @@
 .container {
-    padding: 16px 0 64px;
-    background-color: #F4F5F6;
+    padding: 16px 0px 0px;
+    background-image: url('../assets/landing-texture.png');
+    background-repeat: repeat;
+    background-size: 150px;
+    position: relative;
 }
 
-.containerProducts{
+.sectionProducts{
     padding: 92px 0 32px;
 }
 
-.h2 {
+.h2,
+.h2Products {
     text-align: center;
     font-size: 52px;
+    color: #222222;
 }
 
 .divItems {
@@ -24,23 +29,26 @@
     position: relative;
     width: 200px;
     height: 250px;
-    border: 1px solid #343A40;
+    border: 2px solid #000000;
     border-radius: 4px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 4px;
     justify-content: center;
+    background-color: #343A40;
 }
 
 .h3Card {
     padding: 0;
     margin: 0;
     font-size: 28px;
+    color: #FFFFFF;
 }
 
 .paragraphCard {
     margin: 0;
+    color: #DDDDDD;
 }
 
 .iconeEdit {
@@ -96,15 +104,20 @@
 }
 
 .buttonDisabled {
-    margin-top: 16px;
     width: 150px;
     height: 30px;
-    border: 1px solid #F4F5F6;
+    border: 1px solid #222222;
     border-radius: 4px;
     color: #FFFFFF;
     background-color: #6C757D;
     cursor: not-allowed;
     transition: 0.5s;
+    font-weight: bold;
+}
+
+.sectionAddProduct {
+    padding-bottom: 64px;
+    
 }
 
 .containerForm {
@@ -113,6 +126,8 @@
     margin: 0 auto;
     padding: 32px 0;
     border-radius: 8px;
+    background-color: #343A40;
+    border: 2px solid #000000
 }
 
 .form {
@@ -120,6 +135,10 @@
     flex-direction: column;
     gap: 16px;
     align-items: center;
+}
+
+.form > :last-child {
+    margin-top: 16px;
 }
 
 .form > div {
@@ -130,6 +149,7 @@
 
 .form > div > p {
     font-weight: bold;
+    color: #FFFFFF;
 }
 
 .form > div> input {
