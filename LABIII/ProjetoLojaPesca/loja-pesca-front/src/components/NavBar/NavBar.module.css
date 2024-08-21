@@ -1,10 +1,14 @@
 .container {
     display: flex;
+    position: fixed;
+    top: 0;
+    width: 96%;
     align-items: center;
     justify-content: space-between;
     background-color: #202020;
     height: 120px;
     padding: 0 32px;
+    z-index: 99999;
 }
 
 .divTitle {
@@ -13,12 +17,12 @@
     align-items: center;
 }
 
-.divTitle > h1{
+.h1{
     color:#FFFFFF;
     font-size: 40px;
 }
 
-.divTitle > img {
+.logo {
     width: 80px;
     height: 70px;
 }
@@ -28,8 +32,15 @@
     gap: 32px;
 }
 
-.nav > a {
-    color:#FFFFFF;
+.button {
     font-weight: bold;
-    color: #F3F4F5;
+    color: #DDDDDD;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.button:hover {
+    color: #FFFFFF;
 }
