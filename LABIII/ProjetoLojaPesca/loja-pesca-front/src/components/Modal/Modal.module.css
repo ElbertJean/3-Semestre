@@ -3,10 +3,88 @@
     top:50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 400px;
+    width: 320px;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
     height: 400px;
-    background-color: red;
-    border-radius: 4px;
-    padding: 32px;
-};
+    background-color: #FFFFFF;
+    border: 2px solid #000000;
+    border-radius: 8px;
+    padding: 32px 0;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
 
+.iconClose {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #343A40;
+    font-size: 25px;
+}
+
+.h3 {
+    color: #343A40;
+    font-size: 32px;
+    padding-bottom: 16px;    
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
+
+.formulario > :last-child {
+    margin-top: 16px;
+}
+
+.divForm {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.labelInputForm {
+    font-weight: bold;
+    color: #343A40;
+}
+
+.inputForm {
+    width: 200px;
+    height: 30px;
+    border-radius: 4px;
+    border: 1px solid #343A40;
+    padding: 0 8px;
+}
+
+.button {
+    width: 150px;
+    height: 30px;
+    border: 1px solid #F4F5F6;
+    border-radius: 4px;
+    color: #FFFFFF;
+    background-color: #343A40;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.button:hover {
+    background-color: #5C636A;
+    transition: 0.5s;   
+}
+
+.buttonDisabled {
+    width: 150px;
+    height: 30px;
+    border: 1px solid #222222;
+    border-radius: 4px;
+    color: #FFFFFF;
+    background-color: #6C757D;
+    cursor: not-allowed;
+    transition: 0.5s;
+    font-weight: bold;
+}
