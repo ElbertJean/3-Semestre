@@ -70,7 +70,7 @@ function Home() {
     }
 
     return (
-        <>
+        <div style={{position: 'relative'}}>
             <NavBar />
             <div className={styles.container}>
                 <section className={styles.containerProducts}>
@@ -85,6 +85,7 @@ function Home() {
                     ))}
                     </div>
                 </section>
+                <hr style={{color: '#343A40', width: '95%'}}/>
                 <section>
                     <h2 className={styles.h2}>Cadastrar Produto</h2>
                     <div className={styles.containerForm}>
@@ -124,7 +125,7 @@ function Home() {
                     </div>
                 </section>
             </div>
-        </>
+        </div>
     );
 }
 

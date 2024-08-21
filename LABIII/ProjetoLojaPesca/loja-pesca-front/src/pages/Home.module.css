@@ -3,6 +3,10 @@
     background-color: #F4F5F6;
 }
 
+.containerProducts{
+    padding: 16px 0 32px;
+}
+
 .h2 {
     text-align: center;
     font-size: 52px;
