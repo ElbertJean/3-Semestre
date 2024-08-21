@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #202020;
+    height: 120px;
+    padding: 0 32px;
+}
+
+.divTitle {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+.divTitle > h1{
+    color:#FFFFFF;
+    font-size: 40px;
+}
+
+.divTitle > img {
+    width: 80px;
+    height: 70px;
+}
+
+.nav {
+    display: flex;
+    gap: 32px;
+}
+
+.nav > a {
+    color:#FFFFFF;
+    font-weight: bold;
+    color: #F3F4F5;
+}

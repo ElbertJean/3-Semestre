@@ -12,6 +12,7 @@ import com.example.lojaPesca.LojaPesca;
 
 @RestController
 @RequestMapping("/loja-pesca")
+@CrossOrigin(origins = "*")
 class LojaPescaController {
 
 	private List<LojaPesca> lojaPesca = new ArrayList<>();
