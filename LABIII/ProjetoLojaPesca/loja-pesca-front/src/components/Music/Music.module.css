@@ -1,0 +1,40 @@
+/* ************ */
+/* PLAYER MUSIC */
+/* ************ */
+.musicPlayer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.playButton,
+.pauseButton {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #2ECC71;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+}
+
+.playButton:hover {
+    background-color: #27AE60;
+    transition: 0.3s;
+}
+
+.pauseButton {
+    background-color: #E74C3C;
+}
+
+.pauseButton:hover {
+    background-color: #DB4A2E;
+}

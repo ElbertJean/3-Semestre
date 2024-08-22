@@ -1,4 +1,4 @@
-import react from 'react';
+import React, {  useState, useRef} from 'react';
 import styles from './NavBar.module.css';
 import logo from '../../assets/logo.png';
 

@@ -4,11 +4,15 @@ import styles from './Home.module.css';
 import { FaTrash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import Modal from '../components/Modal/Modal.component';
+import Music from '../components/Music/Music.component';
 
 function Home() {
     const [data, setData] = useState([]);
+    console.log('data', data);
 
-    const [idValue, setIdValue] = useState(0);
+    const [idValue, setIdValue] = useState("");
+    const idRandom = Math.floor(Math.random() * (10000000 - 1 + 1)) + 1
+
     const [lineMarkValue, setLineMarkValue] = useState("");
     const [mmLineValue, setMmLineValue] = useState("");
 
@@ -62,7 +66,7 @@ function Home() {
             const response = await fetch('http://localhost:8080/loja-pesca', {
                 method: 'POST',
                 body: JSON.stringify({
-                    id: idValue,
+                    id: idValue + idRandom,
                     lineMark: lineMarkValue,
                     mmLine: mmLineValue
                 }),
@@ -77,12 +81,14 @@ function Home() {
 
             if (response.ok) {
                 alert('Item Cadastrado com sucesso!');
+                setShouldFetchData(true);
+
                 setIdValue("");
                 setLineMarkValue("");
-                setMmLineValue(""); 
-
-                setShouldFetchData(true);
+                setMmLineValue("");
+            
             }
+
         } catch (error) {
             alert('Erro ao cadastrar!');
         }
@@ -147,6 +153,7 @@ function Home() {
                                     placeholder="1" 
                                     onChange={(e) => setIdValue(e.target.value)}
                                     className={styles.inputForm}
+                                    value={idValue}
                                 />
                             </div>
                             <div className={styles.divForm}>
@@ -156,6 +163,7 @@ function Home() {
                                     placeholder="ZEEO" 
                                     onChange={(e) => setLineMarkValue(e.target.value)}
                                     className={styles.inputForm}
+                                    value={lineMarkValue}
                                 />
                             </div>
                             <div className={styles.divForm}>
@@ -165,6 +173,7 @@ function Home() {
                                     placeholder="0.35mm" 
                                     onChange={(e) => setMmLineValue(e.target.value)}
                                     className={styles.inputForm}
+                                    value={mmLineValue}
                                 />
                             </div>
                             <button 
@@ -210,6 +219,7 @@ function Home() {
                         <Modal/>
                     </div>
                 )}
+                <Music />
             </div>
         </div>
     );
