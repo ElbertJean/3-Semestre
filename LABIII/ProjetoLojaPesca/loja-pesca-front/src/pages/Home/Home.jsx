@@ -1,18 +1,24 @@
 import React, {useState, useEffect} from 'react';
 import styles from './Home.module.css';
+import { useNavigate } from 'react-router-dom';
+
 import Layout from '../../components/Layout/Layout.component';
+import Button from '../../components/Button/Button.component';
+import InputText from '../../components/Input/InputText/InputText.component';
 
 import imageHeader from '../../assets/imageHeader.png';
-import Button from '../../components/Button/Button.component';
-
 import artigosPesca from '../../assets/artigosPesca.png';
 import artigosAgropecuaria from '../../assets/artigosAgropecuaria.png';
 import artigosEcossistemas from '../../assets/artigosEcossistemas.png';
-import InputText from '../../components/Input/InputText/InputText.component';
+
+import isEmailValid from '../../@utils/isEmailValid';
+import isNumberValid from '../../@utils/isNumberValid';
 
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 function Home() {
+
+    const navigate = useNavigate();
 
     const [nomeValue, setNomeValue] = useState("");
     const [telValue, setTelValue] = useState("");
@@ -22,6 +28,11 @@ function Home() {
     const [disabledButton, setDisabledButton] = useState(true);
 
     const [loading, setLoading] = useState(false);
+
+    const [errorName, setErrorName] = useState(false);
+    const [errorTel, setErrorTel] = useState(false);
+    const [errorEmail, setErrorEmail] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(false);
 
     useEffect(() => {
         if (nomeValue.length > 0 && telValue.length > 0 && emailValue.length > 0 && messageValue.length > 0) {
@@ -33,33 +44,56 @@ function Home() {
 
     const HandleSendEmail = async (e) => {
         e.preventDefault();
-
+        
         setLoading(true);
-
-        const response = await fetch('http://localhost:8080/loja-pesca/send-email', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                nome: nomeValue,
-                telefone: telValue,
-                email: emailValue,
-                mensagem: messageValue,
-            }),
-        });
     
-        if (response.ok) {
+        const nameValid = nomeValue.length > 1;
+        const emailValid = isEmailValid(emailValue);
+        const telValid = isNumberValid(telValue);
+        const messageValid = messageValue.length >= 20;
+    
+        setErrorName(!nameValid);
+        setErrorEmail(!emailValid);
+        setErrorTel(!telValid);
+        setErrorMessage(!messageValid);
+    
+        if (!nameValid || !emailValid || !telValid || !messageValid) {
             setLoading(false);
-            alert('Email enviado com sucesso!');
-            setNomeValue("");
-            setTelValue("");
-            setEmailValue("");
-            setMessageValue("");
+            return;
+        }
+    
+        try {
+            const response = await fetch('http://localhost:8080/loja-pesca/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nome: nomeValue,
+                    telefone: telValue,
+                    email: emailValue,
+                    mensagem: messageValue,
+                }),
+            });
+    
+            if (response.ok) {
+                alert('Email enviado com sucesso!');
 
-        } else {
+                setNomeValue("");
+                setTelValue("");
+                setEmailValue("");
+                setMessageValue("");
+
+                setErrorTel(false);
+                setErrorEmail(false);
+            } else {
+                alert('Falha ao enviar o email.');
+            }
+        } catch (error) {
+            console.error('Erro ao enviar o email:', error);
+            alert('Erro inesperado. Tente novamente mais tarde.');
+        } finally {
             setLoading(false);
-            alert('Falha ao enviar o email.');
         }
     };
     
@@ -76,7 +110,7 @@ function Home() {
                         <p className={styles.paragraphLanding}>
                         Temos todos os itens para garantir o melhor desempenho na sua pescaria, com qualidade superior e preços imbatíveis. Desde as varas de pesca mais resistentes até os anzóis mais afiados, oferecemos uma ampla gama de produtos para atender a todas as suas necessidades. Seja você um pescador iniciante ou experiente, nossa loja é o lugar certo para encontrar tudo o que precisa para uma pescaria bem-sucedida. Aproveite nossas ofertas e prepare-se para capturar grandes momentos!
                         </p>
-                        <Button title="Ver produtos" className={styles.buttonLanding}/>
+                        <Button title="Ver produtos" className={styles.buttonLanding} onClick={() => navigate('/products')}/>
                     </div>
                 </div>
             </section>
@@ -189,11 +223,11 @@ function Home() {
                             <label className={styles.labelForm}>Nome:</label>
                             <InputText 
                                 placeholder="John Doe" 
-                                className={styles.inputForm} 
+                                className={`${styles.inputForm} ${errorName === true ? styles.errorInput : ''}`} 
                                 onChange={(e) => setNomeValue(e.target.value)}
                                 value={nomeValue}
                             />
-                            {/* <p className={styles.form-error} data-field=}name}>Insira um nome válido! Ex: John Doe</p> */}
+                            {errorName && <span className={styles.error}>Insira um nome válido</span>}
                         </div>
                         <div className={styles.divInputForm}>
                             <label className={styles.labelForm}>Telefone:</label>
@@ -203,6 +237,7 @@ function Home() {
                                 onChange={(e) => setTelValue(e.target.value)}
                                 value={telValue}
                             />
+                            {errorTel && <span className={styles.error}>Insira um telefone valido</span>}
                         </div>
                         <div className={styles.divInputForm}>
                             <label className={styles.labelForm}>Email:</label>
@@ -211,17 +246,20 @@ function Home() {
                                 className={styles.inputForm}
                                 onChange={(e) => setEmailValue(e.target.value)}
                                 value={emailValue}
-                            />
+                                />
+                            {errorEmail && <span className={styles.error}>Insira um email valido</span>}
                         </div>
                         <div className={styles.divInputForm}>
                             <label className={styles.labelForm}>Mensagem:</label>
                             <textarea 
                                 className={styles.textInputForm} 
+                                placeholder='Insira pelo menos 20 caracteres...'
                                 rows="10" 
                                 maxlength="500" 
                                 onChange={(e) => setMessageValue(e.target.value)}
                                 value={messageValue}
                             ></textarea>
+                            {errorMessage && <span className={styles.error}>Insira uma mensagem valida</span>}
                         </div>
                         <div className={styles.divButtonForm}>
                             <Button 

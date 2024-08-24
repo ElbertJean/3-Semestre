@@ -229,7 +229,7 @@ Section Location
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 12px;
+    gap: 16px;
 }
   
 .divInputForm {
@@ -238,6 +238,7 @@ Section Location
     flex-direction: column;
     gap: 5px;
     margin-bottom: 10px;
+    position: relative;
 }
   
 .labelForm {
@@ -252,6 +253,18 @@ Section Location
   
 .inputForm:focus {
     outline: 1px solid #343A40 !important;
+}
+
+.errorInput {
+    border: 1px solid red !important;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    position: absolute;
+    bottom: -15px;
+    left: 0;
 }
   
 .textInputForm {
