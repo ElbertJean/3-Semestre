@@ -10,6 +10,8 @@ import artigosAgropecuaria from '../../assets/artigosAgropecuaria.png';
 import artigosEcossistemas from '../../assets/artigosEcossistemas.png';
 import InputText from '../../components/Input/InputText/InputText.component';
 
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+
 function Home() {
 
     const [nomeValue, setNomeValue] = useState("");
@@ -19,6 +21,8 @@ function Home() {
 
     const [disabledButton, setDisabledButton] = useState(true);
 
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         if (nomeValue.length > 0 && telValue.length > 0 && emailValue.length > 0 && messageValue.length > 0) {
             setDisabledButton(false);
@@ -27,10 +31,37 @@ function Home() {
         }
     },[nomeValue, telValue, emailValue, messageValue]);
 
-    function handleForm(e) {
+    const HandleSendEmail = async (e) => {
         e.preventDefault();
-        console.log({nomeValue, telValue, emailValue, messageValue});
-    }
+
+        setLoading(true);
+
+        const response = await fetch('http://localhost:8080/loja-pesca/send-email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                nome: nomeValue,
+                telefone: telValue,
+                email: emailValue,
+                mensagem: messageValue,
+            }),
+        });
+    
+        if (response.ok) {
+            setLoading(false);
+            alert('Email enviado com sucesso!');
+            setNomeValue("");
+            setTelValue("");
+            setEmailValue("");
+            setMessageValue("");
+
+        } else {
+            setLoading(false);
+            alert('Falha ao enviar o email.');
+        }
+    };
     
     return (
         <Layout>
@@ -134,7 +165,12 @@ function Home() {
             {/* end section Location */}
 
             {/* start Form */}
-            <section className={styles.containerForm}>
+            <section className={styles.sectionForm}>
+                {loading && (
+                    <div className={styles.loadingForm}>
+                        <AiOutlineLoading3Quarters className={styles.loading} />
+                    </div>
+                )}
                 <div className={styles.divInfoForm}>
                     <div className={styles.cardInfoForm}>
                         <h3 className={styles.titleForm}>Faça já o seu pedido!</h3>
@@ -155,6 +191,7 @@ function Home() {
                                 placeholder="John Doe" 
                                 className={styles.inputForm} 
                                 onChange={(e) => setNomeValue(e.target.value)}
+                                value={nomeValue}
                             />
                             {/* <p className={styles.form-error} data-field=}name}>Insira um nome válido! Ex: John Doe</p> */}
                         </div>
@@ -164,17 +201,17 @@ function Home() {
                                 placeholder="(00) 91234-5678" 
                                 className={styles.inputForm} 
                                 onChange={(e) => setTelValue(e.target.value)}
+                                value={telValue}
                             />
-                            {/* <p className={styles.form-error} data-field=}phone}>Insira um telefone válido! Ex: (00) 91234-5678</p> */}
                         </div>
                         <div className={styles.divInputForm}>
                             <label className={styles.labelForm}>Email:</label>
-                            <InputText 
+                            <InputText
                                 placeholder="johndoe@email.com" 
                                 className={styles.inputForm}
                                 onChange={(e) => setEmailValue(e.target.value)}
+                                value={emailValue}
                             />
-                            {/* <p className={styles.form-error} data-field=}email}>Email inválido! Ex: exemplo@email.com.br</p> */}
                         </div>
                         <div className={styles.divInputForm}>
                             <label className={styles.labelForm}>Mensagem:</label>
@@ -183,14 +220,15 @@ function Home() {
                                 rows="10" 
                                 maxlength="500" 
                                 onChange={(e) => setMessageValue(e.target.value)}
+                                value={messageValue}
                             ></textarea>
-                            {/* <p className={styles.form-error} data-field=}message}>A mensagem está vazia ou possui caracteres inválidos!</p> */}
                         </div>
                         <div className={styles.divButtonForm}>
                             <Button 
                                 title="Enviar" 
                                 className={`${styles.buttonForm} ${disabledButton ? styles.buttonFormDisabled : ''}` }
                                 disabled={disabledButton}
+                                onClick={(e) => HandleSendEmail(e)}
                             />
                         </div>
                     </div>

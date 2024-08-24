@@ -2,8 +2,10 @@ package com.example.lojaPescaController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,9 @@ import com.example.lojaPesca.LojaPesca;
 @RequestMapping("/loja-pesca")
 @CrossOrigin(origins = "*")
 class LojaPescaController {
+
+	@Autowired
+  private EmailService emailService;
 
 	private List<LojaPesca> lojaPesca = new ArrayList<>();
 	
@@ -101,4 +106,19 @@ class LojaPescaController {
 			return new ResponseEntity<>("Erro ao tentar deletar os itens.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@PostMapping("/send-email")
+    public ResponseEntity<String> enviarEmail(@RequestBody Map<String, String> dados) {
+			String nome = dados.get("nome");
+			String telefone = dados.get("telefone");
+			String email = dados.get("email");
+			String mensagem = dados.get("mensagem");
+
+			String assunto = "Novo contato de: " + nome;
+			String corpoMensagem = "Nome: " + nome + "\nTelefone: " + telefone + "\nEmail: " + email + "\n\nMensagem:\n" + mensagem;
+
+			emailService.sendSimpleMessage("elbertjean@zohomail.com", assunto, corpoMensagem);
+
+			return ResponseEntity.ok("Email enviado com sucesso!");
+    }
 }
