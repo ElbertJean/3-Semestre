@@ -1,0 +1,96 @@
+.container {
+    position: relative;
+}
+
+.h2,
+.h2Products {
+    text-align: center;
+    font-size: 52px;
+    color: #222222;
+}
+
+.divItems {
+    display: flex;
+    gap:32px;
+    margin: 16px 0;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cardItems {
+    position: relative;
+    width: 200px;
+    height: 250px;
+    border: 2px solid #000000;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    justify-content: center;
+    background-color: #343A40;
+    transition: 0.2s;
+}
+
+.cardItems:hover {
+    width: 205px;
+    height: 255px;
+    transition: 0.2s;
+}
+
+.h3Card {
+    padding: 0;
+    margin: 0;
+    font-size: 28px;
+    color: #FFFFFF;
+}
+
+.paragraphCard {
+    margin: 0;
+    color: #DDDDDD;
+}
+
+.iconeEdit {
+    position: absolute;
+    bottom: 5px;
+    right: 40px;
+    color: #20b54a;
+    font-size: 30px;
+    cursor: pointer; 
+}
+
+.iconTrash {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: #DB4A2E;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.buttonDisabled {
+    border: 1px solid #222222 !important;
+    background-color: #6C757D !important;
+    cursor: not-allowed !important;
+    transition: 0.5s;
+    font-weight: bold;
+}
+
+/* ****************** */
+/* Modal Edit Product */
+/* ****************** */
+
+.cardMapExpanded {
+    position: absolute;
+    top: 58%;
+    right: 50%;
+    transition: right 1s linear;
+}
+
+.cardMapCollapsed {
+    position: absolute;
+    top: 58%;
+    z-index: 2;
+    transition: right 1s linear;
+    right: calc(0% - 450px);
+}

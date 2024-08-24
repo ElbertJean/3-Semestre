@@ -2,6 +2,9 @@ import React, {useState, useEffect} from 'react';
 import styles from './Modal.module.css';
 import { IoCloseSharp } from "react-icons/io5";
 
+import Button from '../Button/Button.component';
+import InputText from '../Input/InputText/InputText.component';
+
 const Modal = ({ closeModal, item, setShowModal, setShouldFetchData }) => {
     
     const [idValue, setIdValue] = useState("");
@@ -9,8 +12,6 @@ const Modal = ({ closeModal, item, setShowModal, setShouldFetchData }) => {
     const [mmLineValue, setMmLineValue] = useState("");
 
     const [disabledButton, setDisabledButton] = useState(true);
-    console.log('disabledButton', disabledButton);
-
     
     useEffect(() => {
         if (item) {
@@ -64,40 +65,33 @@ const Modal = ({ closeModal, item, setShowModal, setShouldFetchData }) => {
             <form className={styles.form}>
                 <div className={styles.divForm}>
                     <p className={styles.labelInputForm}> ID do produto:</p>
-                    <input 
-                        type="text" 
-                        value={idValue}
-                        className={styles.inputForm}
+                    <InputText 
+                        value={idValue} 
                         readOnly
                         disabled
                     />
                 </div>
                 <div className={styles.divForm}>
                     <p className={styles.labelInputForm}> Marca da linha:</p>
-                    <input 
-                        type="text" 
-                        value={lineMarkValue}
-                        className={styles.inputForm}
+                    <InputText 
+                        value={lineMarkValue} 
                         onChange={(e) => setLineMarkValue(e.target.value)}
                     />
                 </div>
                 <div className={styles.divForm}>
                     <p className={styles.labelInputForm}> mm Linha: </p>
-                    <input 
-                        type="text" 
-                        value={mmLineValue}
-                        className={styles.inputForm}
+                    <InputText 
+                        value={mmLineValue} 
                         onChange={(e) => setMmLineValue(e.target.value)}
                     />
                 </div>
-                <button 
+                <Button 
                     type="submit" 
-                    className={`${styles.button} ${disabledButton ? styles.buttonDisabled : styles.buttonAdd}`}
+                    className={`${disabledButton ? styles.buttonDisabled : styles.buttonAdd}`} 
                     onClick={PutItem}
                     disabled={disabledButton}
-                >
-                    Atualizar
-                </button>
+                    title="Atualizar"
+                />
             </form>
         </div>
     );

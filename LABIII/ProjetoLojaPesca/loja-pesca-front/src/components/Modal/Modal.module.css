@@ -14,6 +14,7 @@
     align-items: center;
     display: flex;
     flex-direction: column;
+    z-index: 2;
 }
 
 .iconClose {
@@ -61,30 +62,10 @@
     padding: 0 8px;
 }
 
-.button {
-    width: 150px;
-    height: 30px;
-    border: 1px solid #F4F5F6;
-    border-radius: 4px;
-    color: #FFFFFF;
-    background-color: #343A40;
-    cursor: pointer;
-    transition: 0.5s;
-}
-
-.button:hover {
-    background-color: #5C636A;
-    transition: 0.5s;   
-}
-
 .buttonDisabled {
-    width: 150px;
-    height: 30px;
-    border: 1px solid #222222;
-    border-radius: 4px;
-    color: #FFFFFF;
-    background-color: #6C757D;
-    cursor: not-allowed;
+    border: 1px solid #222222 !important;
+    background-color: #6C757D !important;
+    cursor: not-allowed !important;
     transition: 0.5s;
     font-weight: bold;
 }

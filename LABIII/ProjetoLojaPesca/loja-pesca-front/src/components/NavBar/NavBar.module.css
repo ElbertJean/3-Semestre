@@ -2,13 +2,13 @@
     display: flex;
     position: fixed;
     top: 0;
-    width: 98%;
+    width: 96%;
     align-items: center;
     justify-content: space-between;
     background-color: #202020;
     height: 120px;
     padding: 0 32px;
-    z-index: 99999;
+    z-index: 1;
 }
 
 .divTitle {

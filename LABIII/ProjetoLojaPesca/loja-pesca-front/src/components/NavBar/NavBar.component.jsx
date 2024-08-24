@@ -1,16 +1,12 @@
 import React, {  useState, useRef} from 'react';
 import styles from './NavBar.module.css';
 import logo from '../../assets/logo.png';
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
 
-    const scrollToSection = (sectionId) => {
-        const section = document.getElementById(sectionId);
-        if (section) {
-            section.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
-
+    const navigate = useNavigate();
+    
     return (
         <div className={styles.container}>
             <div className={styles.divTitle}>
@@ -18,8 +14,9 @@ const NavBar = () => {
                 <h1 className={styles.h1}>Agro Pesca Jacaré</h1>
             </div>
             <nav className={styles.nav}>
-                <button className={styles.button} onClick={() => scrollToSection('Cadastrar')}>Cadastrar produto</button>
-                <button className={styles.button} onClick={() => scrollToSection('Produtos')}>Produtos</button>
+                <button className={styles.button} onClick={() => navigate('/')}>Página inicial</button>
+                <button className={styles.button} onClick={() => navigate('/products')}>Produtos</button>
+                <button className={styles.button} onClick={() => navigate('/register')}>Cadastrar Produto</button>
             </nav>                
         </div>
     );
