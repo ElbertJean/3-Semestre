@@ -37,3 +37,11 @@
     font-weight: bold;
     color: #FFFFFF;
 }
+
+.buttonDisabled {
+    border: 1px solid #222222 !important;
+    background-color: #6C757D !important;
+    cursor: not-allowed !important;
+    transition: 0.5s;
+    font-weight: bold;
+}
