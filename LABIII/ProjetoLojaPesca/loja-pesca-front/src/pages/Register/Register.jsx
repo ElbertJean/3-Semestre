@@ -4,13 +4,10 @@ import useProductActions from '../../hooks/useProductActions';
 import styles from './Register.module.css';
 
 import Layout from '../../components/Layout/Layout.component';
-import NavBar from '../../components/NavBar/NavBar.component';
 import InputText from '../../components/Input/InputText/InputText.component';
 import Button from '../../components/Button/Button.component';
 
 function Register() {
-
-    const [data, setData] = useState([]);
 
     const [idValue, setIdValue] = useState("");
     const [lineMarkValue, setLineMarkValue] = useState("");
@@ -28,7 +25,6 @@ function Register() {
             lineMarkValue, 
             mmLineValue, 
             idRandom, 
-            setData, 
             setShouldFetchData, 
             setIdValue, 
             setLineMarkValue, 

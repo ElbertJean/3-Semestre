@@ -30,7 +30,6 @@ const useProductActions = () => {
         lineMarkValue, 
         mmLineValue, 
         idRandom, 
-        setData, 
         setShouldFetchData, 
         setIdValue, 
         setLineMarkValue, 

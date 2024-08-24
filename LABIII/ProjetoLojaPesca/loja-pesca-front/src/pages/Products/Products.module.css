@@ -2,17 +2,16 @@
     position: relative;
 }
 
-.h2,
-.h2Products {
+.h2 {
     text-align: center;
     font-size: 52px;
     color: #222222;
+    margin: 32px 0px 64px;
 }
 
 .divItems {
     display: flex;
     gap:32px;
-    margin: 16px 0;
     justify-content: center;
     flex-wrap: wrap;
 }

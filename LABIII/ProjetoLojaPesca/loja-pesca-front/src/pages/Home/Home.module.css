@@ -1,0 +1,293 @@
+/* ******************
+SECTION HEADER
+********************* */
+.containerLanding {
+    display: flex;
+    padding: 64px 0 64px;
+    gap: 100px;
+    align-items: center;
+    justify-content: center;
+}
+
+.divImageLanding {
+    width: 50%;
+    display: flex;
+    justify-content: right;
+    gap: 12px;
+}
+
+.imageLanding {
+    width: 800px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 64px;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 64px;
+    transition: transform 1s;
+}
+
+.imageLanding:hover {
+    animation: moveUpDown 1s infinite;
+}
+
+@keyframes moveUpDown {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+  
+.divInfoLanding {
+    display: flex;
+    width: 50%;
+}
+
+.cardInfoLanding {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+}
+
+.titleLanding{
+    font-size: 56px;
+    color: #111111;
+}
+
+.paragraphLanding {
+    color: #222;
+    line-height: 24px;
+    font-size: 18px;
+}
+
+.buttonLanding {
+    width: 70%;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 250ms;
+}
+
+
+/* *******************
+Section Performance
+******************** */
+.sectionPadding {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 64px 64px 0 64px;
+    gap: 32px;
+}
+  
+.titlePerformance {
+    font-size: 56px;
+    margin-bottom: 64px;
+}
+  
+.divFlexPerformance {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+}
+
+.divPerformanceLeft,
+.divPerformanceRight {
+    display: flex;
+}
+  
+.divPerformanceInfo {
+    width: 50%;
+    padding: 32px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+}
+  
+.titlePerformanceInfoLeft {
+    margin-left: auto;
+    width: 80%;
+    font-size: 40px;
+}
+  
+.paragraphPerformanceInfoLeft {
+    margin-left: auto;
+    width: 80%;
+    font-size: clamp(1rem, 1.1vw, 1.2rem);
+}
+  
+.titlePerformanceInfoRight {
+    font-family: "Rubik", sans-serif;
+    font-size: 40px;
+}
+  
+.paragraphPerformanceInfoRight{
+    width: 80%;
+    font-size: clamp(1rem, 1.1vw, 1.2rem);
+}
+  
+.divPerformanceImage {
+    width: 1000px;
+    display: flex;
+    justify-content: center;
+}
+  
+.imagePerformance {
+    width: 60%;
+    border-radius: 8px;
+}
+
+/* *******************
+Section Location
+******************** */
+.containerAboutJacare {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding: 64px 0 ;
+    margin: 64px 0;
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 8px;
+}
+  
+.titleAboutJacare {
+    font-size: 56px;
+    text-align: center;
+}
+  
+.divAboutJacare {
+    display: flex;
+    gap: 40px;
+}
+  
+.divTextAboutJacare {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+  
+.paragraphAboutJacare {
+    width: 60%;
+    margin-left: auto;
+    text-align: center;
+    font-size: clamp(1rem, 1.1vw, 1.2rem);
+}
+  
+.paragraphAboutJacareD {
+    width: 60%;
+    margin-right: auto;
+    text-align: center;
+    font-weight: bold;
+    font-size: clamp(1rem, 1.1vw, 1.2rem);
+}
+  
+
+/* *****************
+ Section Form
+***************** */
+.containerForm {
+    display: flex;
+    justify-content: center;
+    padding: 0px 64px;
+    border-radius: 8px;
+}
+  
+.divInfoForm {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    text-align: left;
+}
+  
+.cardInfoForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+}
+  
+.titleForm {
+    font-family: "Rubik", sans-serif;
+    font-size: 80px;
+    color: black;
+}
+  
+.paragraphForm {
+    font-size: clamp(1rem, 1.1vw, 1.2rem);
+    color: #343A40;
+}
+  
+.form {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+  
+.containerGroupForm{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+}
+  
+.divInputForm {
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+  
+.labelForm {
+    font-weight: 500;
+    color: #222222;
+}
+  
+.inputForm {
+    height: 35px !important;
+    border: 1px solid #72727288 !important;
+}
+  
+.inputForm:focus {
+    outline: 1px solid #343A40 !important;
+}
+  
+.textInputForm {
+    height: 200px;
+    border-radius: 4px;
+    padding: 12px;
+    border: 1px solid #72727288; 
+    color: #343A40;
+}
+  
+.textInputForm:focus {
+    outline: 1px solid #343A40;
+}
+  
+.divButtonForm{
+    width: 100%;
+    text-align: center;
+}
+  
+.buttonForm {
+    width: 100% !important;
+    height: 40px !important;
+    font-size: 16px;
+    border: none;
+    transition: all .1s ease;
+}
+
+.buttonFormDisabled {
+    background-color: #6C757D !important;
+    cursor: not-allowed !important;
+    transition: 0.5s;
+    font-weight: bold;
+}

@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import NavBar from '../../components/NavBar/NavBar.component';
 import styles from './Products.module.css';
 import { FaTrash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import Modal from '../../components/Modal/Modal.component';
-import Music from '../../components/Music/Music.component';
 import useProductActions from '../../hooks/useProductActions';
 import Layout from '../../components/Layout/Layout.component';
 

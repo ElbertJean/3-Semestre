@@ -1,6 +1,7 @@
 .container {
     padding: 128px 0 64px;
     position: relative;
+    margin-bottom: 32px;
 }
 
 .content {

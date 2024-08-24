@@ -1,4 +1,4 @@
-import React, {  useState, useRef} from 'react';
+import React from 'react';
 import styles from './NavBar.module.css';
 import logo from '../../assets/logo.png';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,7 @@ const NavBar = () => {
     return (
         <div className={styles.container}>
             <div className={styles.divTitle}>
-                <img src={logo} className={styles.logo}/>
+                <img src={logo} className={styles.logo} alt='logo'/>
                 <h1 className={styles.h1}>Agro Pesca Jacaré</h1>
             </div>
             <nav className={styles.nav}>
