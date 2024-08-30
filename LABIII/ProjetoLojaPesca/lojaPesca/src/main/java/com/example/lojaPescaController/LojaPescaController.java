@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.lojaPesca.LojaPesca;
 
+import jakarta.mail.MessagingException;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/loja-pesca")
@@ -114,14 +116,21 @@ class LojaPescaController {
 		String email = dados.get("email");
 		String mensagem = dados.get("mensagem");
 
-		String assuntoAdmin = "Novo contato de: " + nome;
-		String assuntoCliente = "Olá " + nome + "!";
-		String corpoMensagemAdmin = "Nome: " + nome + "\nTelefone: " + telefone + "\nEmail: " + email + "\n\nMensagem:\n" + mensagem;
-		String corpoMensagemCliente = nome + ", em breve entraremos em contato com você!";
+		Map<String, Object> templateModel = Map.of(
+        "nome", nome,
+        "telefone", telefone,
+        "email", email,
+        "mensagem", mensagem
+    );
 
-		emailService.sendSimpleMessage(email, assuntoCliente, corpoMensagemCliente);
-		emailService.sendSimpleMessage("elbertjean@zohomail.com", assuntoAdmin, corpoMensagemAdmin);
-
-		return ResponseEntity.ok("Email enviado com sucesso!");
+		try {
+			emailService.sendEmailWithTemplate(email, "Olá " + nome + "!", Map.of("nome", nome), true);
+			emailService.sendEmailWithTemplate("elbertjean@zohomail.com", "Novo contato de: " + nome, templateModel, false);
+    } catch (MessagingException e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao enviar email");
     }
+
+    return ResponseEntity.ok("Email enviado com sucesso!");
+
+	}
 }

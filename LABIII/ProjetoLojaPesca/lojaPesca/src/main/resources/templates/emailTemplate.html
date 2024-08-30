@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Contato</title>
+  </head>
+  <body style="background-color: #202020; margin: 0; padding: 0; width: 100%; height: 100%; text-align: center;">
+    <table width="100%" height="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto; max-width: 600px; background-color: #202020;">
+      <tr>
+        <td align="center" style="padding: 40px;">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border: 1px solid #CCCCCC; border-radius: 16px; background-color: #202020;">
+            <tr>
+              <td style="padding: 32px 16px; text-align: center;">
+                <!-- Logo -->
+                <img src="https://github.com/ElbertJean/3-Semestre/blob/main/LABIII/ProjetoLojaPesca/loja-pesca-front/public/logo.png?raw=true" alt="logo" width="150" style="display: block; margin: 0 auto;"/>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 16px; text-align: center;">
+                <h1 style="color: #FFFFFF; font-size: 32px; font-weight: bold;">
+                  <span th:text="${isClient ? 'Olá, ' + nome + '!' : 'Novo contato de ' + nome}"></span>
+                </h1>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 16px;">
+                <!-- Mensagem para o cliente -->
+                <div th:if="${isClient}" style="text-align: center">
+                  <p style="color: #FFFFFF; font-size: 18px; margin: 16px 0;">Obrigado por entrar em contato conosco!</p>
+                  <p style="color: #FFFFFF; font-size: 18px; margin: 16px 0;">Em breve, entraremos em contato para responder sua mensagem.</p>
+                </div>
+
+                <!-- Mensagem para o administrador -->
+                <div th:if="${!isClient}">
+                  <p style="color: #FFFFFF; font-size: 18px; margin: 16px 0;"><strong>Nome:</strong> <span th:text="${nome}">Nome</span></p>
+                  <p style="color: #FFFFFF; font-size: 18px; margin: 16px 0;"><strong>Telefone:</strong> <span th:text="${telefone}">Telefone</span></p>
+                  <p style="color: #FFFFFF; font-size: 18px; margin: 16px 0;"><strong>Email:</strong> <span th:text="${email}" style="color: #FFFFFF; text-decoration: none;">Email</span></p>
+                  <p style="color: #FFFFFF; font-size: 18px; margin: 16px 0;"><strong>Mensagem:</strong></p>
+                  <p style="color: #CCCCCC; font-size: 18px; margin: 16px 0;" th:text="${mensagem}">Mensagem</p>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
