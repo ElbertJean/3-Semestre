@@ -3,8 +3,8 @@
 int imprimirNaN(int n) {
     printf("%d\n", n);
     if (n > 1) {
-        imprimirNaN(n - 1);
         printf("%d\n", n);
+        imprimirNaN(n - 1);
     }
 }
 

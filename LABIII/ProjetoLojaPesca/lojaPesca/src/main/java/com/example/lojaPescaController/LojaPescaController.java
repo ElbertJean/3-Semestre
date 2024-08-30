@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import com.example.lojaPesca.LojaPesca;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/loja-pesca")
-@CrossOrigin(origins = "*")
 class LojaPescaController {
 
 	@Autowired
@@ -109,16 +109,19 @@ class LojaPescaController {
 
 	@PostMapping("/send-email")
     public ResponseEntity<String> enviarEmail(@RequestBody Map<String, String> dados) {
-			String nome = dados.get("nome");
-			String telefone = dados.get("telefone");
-			String email = dados.get("email");
-			String mensagem = dados.get("mensagem");
+		String nome = dados.get("nome");
+		String telefone = dados.get("telefone");
+		String email = dados.get("email");
+		String mensagem = dados.get("mensagem");
 
-			String assunto = "Novo contato de: " + nome;
-			String corpoMensagem = "Nome: " + nome + "\nTelefone: " + telefone + "\nEmail: " + email + "\n\nMensagem:\n" + mensagem;
+		String assuntoAdmin = "Novo contato de: " + nome;
+		String assuntoCliente = "Olá " + nome + "!";
+		String corpoMensagemAdmin = "Nome: " + nome + "\nTelefone: " + telefone + "\nEmail: " + email + "\n\nMensagem:\n" + mensagem;
+		String corpoMensagemCliente = nome + ", em breve entraremos em contato com você!";
 
-			emailService.sendSimpleMessage("elbertjean@zohomail.com", assunto, corpoMensagem);
+		emailService.sendSimpleMessage(email, assuntoCliente, corpoMensagemCliente);
+		emailService.sendSimpleMessage("elbertjean@zohomail.com", assuntoAdmin, corpoMensagemAdmin);
 
-			return ResponseEntity.ok("Email enviado com sucesso!");
+		return ResponseEntity.ok("Email enviado com sucesso!");
     }
 }

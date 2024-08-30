@@ -8,7 +8,7 @@ const NavBar = () => {
     const navigate = useNavigate();
     
     return (
-        <div className={styles.container}>
+        <header className={styles.header}>
             <div className={styles.divTitle}>
                 <img src={logo} className={styles.logo} alt='logo'/>
                 <h1 className={styles.h1}>Agro Pesca Jacaré</h1>
@@ -18,7 +18,7 @@ const NavBar = () => {
                 <button className={styles.button} onClick={() => navigate('/products')}>Produtos</button>
                 <button className={styles.button} onClick={() => navigate('/register')}>Cadastrar Produto</button>
             </nav>                
-        </div>
+        </header>
     );
 };
 
