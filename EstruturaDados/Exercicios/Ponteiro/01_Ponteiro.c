@@ -8,10 +8,11 @@ int main() {
   ponteiro = &x;
   *ponteiro = 20;
   x = 15;
-  printf("Endereço do ponteiro = %d\n", ponteiro);
+
+  printf("Endereco do ponteiro = %d\n", ponteiro);
   printf("Valor do ponteiro = %d\n", *ponteiro);
 
   printf("Valor do X = %d\n", x);
-  printf("Endereço do X = %d\n", &x);
+  printf("Endereco do X = %d\n", &x);
   return 0;
 }

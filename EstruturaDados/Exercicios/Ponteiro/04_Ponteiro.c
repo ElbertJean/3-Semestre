@@ -15,9 +15,9 @@ int main(void) {
   depois->minuto = 20;
   depois->segundo = 30;
 
-  // *depois->hora = 10;
-  // *depois->minuto = 20;
-  // *depois->segundo = 30;
+  // *(depois).hora = 10;
+  // *(depois).minuto = 20;
+  // *(depois).segundo = 30;
   
   printf("%d:%d:%d\n", depois->hora, depois->minuto, depois->segundo);
   
