@@ -24,8 +24,7 @@ public class ShapeFactoryImp implements ShapeFactory {
             case CUBE:
                 return new Cube(values[0]);
             default:
-                System.out.println("deu ruim");
+                return null;
         }
-        return null;
     }
 }
