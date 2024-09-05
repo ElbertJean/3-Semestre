@@ -2,29 +2,39 @@ package br.ed.fatec.factory;
 
 public class ShapeFactoryImp implements ShapeFactory {
 
+    Calculable result = null;
+
     @Override
     public Calculable getShape(ShapeType type, Double[] values) {
         switch (type) {
             case SQUARE:
-                return new Square(values[0]);
+                result = new Square(values[0]);
+                break;
             case RECTANGLE:
-                return new Rectangle(values[0], values[1]);
+                result = new Rectangle(values[0], values[1]);
+                break;
             case CIRCLE:
-                return new Circle(values[0]);
+                result = new Circle(values[0]);
+                break;
             case TRIANGLE:
-                return new Triangle(values[0], values[1]);
+                result = new Triangle(values[0], values[1]);
+                break;
             case PARALLELOGRAM:
-                return new Parallelogram(values[0], values[1]);
+                result = new Parallelogram(values[0], values[1]);
+                break;
             case TRAPEZO:
-                return new Trapezo(values[0], values[1], values[2]);
+                result = new Trapezo(values[0], values[1], values[2]);
+                break;
             case HEXAGON:
-                return new Hexagon(values[0]);
+                result = new Hexagon(values[0]);
+                break;
             case DIAMOND:
-                return new Diamond(values[0], values[1]);
+                result = new Diamond(values[0], values[1]);
+                break;
             case CUBE:
-                return new Cube(values[0]);
-            default:
-                return null;
+                result = new Cube(values[0]);
+                break;
         }
+        return result;
     }
 }
