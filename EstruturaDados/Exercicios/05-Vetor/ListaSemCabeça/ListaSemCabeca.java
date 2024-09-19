@@ -33,6 +33,7 @@ public class ListaSemCabeca {
   }
 
   public void adicionar(String valor) {
+    // Aqui eu já crio uma lista com cabeça
     No novoElemento = new No(valor);
     if (this.primeiro == null && this.ultimo == null) {
       this.primeiro = novoElemento;
