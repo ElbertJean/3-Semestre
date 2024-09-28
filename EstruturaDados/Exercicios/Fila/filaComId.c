@@ -29,7 +29,6 @@ void remover(Fila **primeiro, Fila **ultimo) {
     }
   } else {
     printf("Fila vazia\n");
-    return -1;
   }
 }
 
@@ -50,12 +49,12 @@ int main() {
   Fila *primeiro = NULL;
   Fila *ultimo = NULL;
 
-  adicionar(&primeiro, &ultimo, 1);
-  adicionar(&primeiro, &ultimo, 2);
-  adicionar(&primeiro, &ultimo, 3);
+  // adicionar(&primeiro, &ultimo, 1);
+  // adicionar(&primeiro, &ultimo, 2);
+  // adicionar(&primeiro, &ultimo, 3);
 
   imprimir(primeiro);
-  remover(&primeiro, &ultimo);
-  imprimir(primeiro);
+  // remover(&primeiro, &ultimo);
+  // imprimir(primeiro);
   return 0;
 }
