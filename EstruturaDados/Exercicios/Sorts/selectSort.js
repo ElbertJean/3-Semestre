@@ -1,3 +1,6 @@
+// Grau de complexidade
+// O(n²) -  For dentro de For
+
 const ordernar = [8, 2, 7, 5, 1, 3, 6];
 
 function selectSort(array) {
