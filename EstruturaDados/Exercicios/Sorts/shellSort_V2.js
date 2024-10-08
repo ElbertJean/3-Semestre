@@ -3,17 +3,29 @@
 /// O(n^3/2) = Para o caso médio, sequência do Gap dividido por 2. (Existem gaps melhores, pesquisar ...)
 /// O(n²) = Pior caso. Caso a lista venha desordenada e necessite passar sempre pelo While.
 
-// const { lista } = require('./data.js');
-// let ordernar = lista;
 
+//Knuth
+let ordernar = Array.from({ length: 1000 }, () => Math.floor(Math.random() * 1000));
 
-// const ordernar = [8, 2, 7, 11, 14, 5, 1, 0, 3, 15, 17, 6, 9];
-const ordernar = [8, 2, 7, 11, 14, 5, 1, 0];
+function mathGap(array) {
+    let gaps = [];
+    let k = 1;
+    let gap;
 
-let gap = Math.floor(ordernar.length / 2);
+    while ((gap = Math.floor((Math.pow(3, k) - 1) / 2)) < array.length) {
+        gaps.unshift(gap);
+        k++;
+    }
+    return gaps;
+}
+
+console.log('mathGap', mathGap(ordernar));
 
 function insertSort(array) {
-    while(gap > 0) {
+
+    let gaps = mathGap(array);
+
+    for(let gap in gaps) {
         for (let i = gap; i < array.length; i++) {
             let temp = array[i];
             let j = i;
@@ -23,9 +35,10 @@ function insertSort(array) {
             }
             array[j] = temp;
         }
-        gap = Math.floor(gap / 2);
     }
     return array;
 }
 
+console.time();
 console.log(insertSort(ordernar));
+console.timeEnd()
