@@ -12,94 +12,114 @@ import java.util.*;
 @Service
 public class ScraperServiceImpl implements ScraperService {
 
-    // URLs dos portais que serão raspados.
-    private final List<String> urls = Arrays.asList(
-        "https://g1.globo.com/"
-        // "https://www.cnnbrasil.com.br/",
-        // "https://www.uol.com.br/"
+    private final List<Map<String, Object>> portals = Arrays.asList(
+        Map.of(
+            "portal", "https://g1.globo.com/",
+            "tags", new HashMap<>(Map.of(
+                "content", ".content-text__container",
+                "title", ".content-head__title",
+                "date", "[itemprop=datePublished]",
+                "urlNoticiaSalva", ""
+            ))
+        ),
+        Map.of(
+            "portal", "https://www.cnnbrasil.com.br/",
+            "tags", new HashMap<>(Map.of(
+                "content", ".single-content p",
+                "title", ".single-header__title",
+                "date", ".single-header__time",
+                "urlNoticiaSalva", ""
+            ))
+        )
+        // Map.of(
+        //     "portal", "https://noticias.uol.com.br/cotidiano/ultimas-noticias/2024/10/12/anoitece-e-sp-ainda-tem-bairros-as-escuras.htm",
+        //     "tags", new HashMap<>(Map.of(
+        //         "content", ".bullet mt-0",
+        //         "title", ".title",
+        //         "date", ".date",
+        //         "urlNoticiaSalva", "" // URL do artigo
+        //     ))
+        // )
     );
+
+    private Set<String> processedUrls = new HashSet<>();
 
     @Override
     public Set<ResponseDTO> getSearch() {
         Set<ResponseDTO> responseDTOS = new HashSet<>();
         System.out.println("Buscando notícias...");
 
-        for (String url : urls) {
-            extractNews(responseDTOS, url);
+        for (Map<String, Object> portalData : portals) {
+            try {
+                String portalUrl = (String) portalData.get("portal");
+                @SuppressWarnings("unchecked")
+                Map<String, String> tags = (Map<String, String>) portalData.get("tags");
+
+                System.out.println("Processando portal: " + portalUrl);
+                extractNews(responseDTOS, portalUrl, tags);
+
+            } catch (Exception e) {
+                System.out.println("Erro ao processar o portal: " + portalData.get("portal"));
+                e.printStackTrace();
+            }
         }
 
         return responseDTOS;
     }
 
-    private void extractNews(Set<ResponseDTO> responseDTOS, String url) {
+    private void extractNews(Set<ResponseDTO> responseDTOS, String url, Map<String, String> tags) {
         try {
             Document document = Jsoup.connect(url).get();
-            Elements newsCards = document.select("a");
-    
+            Elements newsCards = document.select("a[href]");
+
             for (Element card : newsCards) {
                 String link = card.attr("href");
-    
-                // Normaliza o link para sempre ser completo com https
+
                 if (!link.startsWith("http")) {
                     link = "https:" + link;
                 }
-    
-                // Verifica se o link começa exatamente com "https://g1.globo.com/"
-                if (link.startsWith("https://g1.globo.com/")) {
-                    System.out.println("Link válido: " + link);
-    
-                    // Aqui você pode adicionar a lógica de coleta de dados, se necessário.
-                    // scrapeNewsDetailsG1(responseDTOS, link);
+
+                if (link.startsWith(url) && !processedUrls.contains(link)) {
+                    processedUrls.add(link);
+                    scrapeNewsDetailsG1(responseDTOS, link, tags);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    private void scrapeNewsDetailsG1(Set<ResponseDTO> responseDTOS, String newsUrl, Map<String, String> tags) {
+        try {
+            Document newsPage = Jsoup.connect(newsUrl).get();
+            // System.out.println("chegou aqui");
     
+            Elements contentElements = newsPage.select(tags.get("content"));
+            if (contentElements.isEmpty()) return;
+    
+            StringBuilder fullContent = new StringBuilder();
+            for (Element content : contentElements) {
+                fullContent.append(content.text()).append(System.lineSeparator());
+            }
 
-    // private void scrapeNewsDetailsG1(Set<ResponseDTO> responseDTOS, String newsUrl) {
-    //     try {
-    //         Document initialPage = Jsoup.connect(newsUrl).get();
-
-    //         // Verificando redirecionamento
-    //         String redirectedUrl = initialPage.select("script").html()
-    //             .replaceAll(".*window.location.replace\\(\"", "")
-    //             .replaceAll("\"\\);.*", "");
-
-    //         if (!redirectedUrl.isEmpty()) {
-    //             newsUrl = redirectedUrl;
-    //         }
-
-    //         Document newsPage = Jsoup.connect(newsUrl).get();
-
-    //         // Coletando título e data
-    //         String title = newsPage.select(".content-head__title").text();
-    //         String datePublished = newsPage.select("[itemprop=datePublished]").attr("content");
-
-    //         // Exibindo o título e a data no console
-    //         System.out.println("Título: " + title);
-    //         System.out.println("Data: " + datePublished);
-
-    //         // Coletando o conteúdo completo
-    //         Elements contentElements = newsPage.select(".content-text__container");
-    //         StringBuilder fullContent = new StringBuilder();
-
-    //         for (Element content : contentElements) {
-    //             fullContent.append(content.text()).append(System.lineSeparator());
-    //         }
-
-    //         // Exibindo o conteúdo coletado
-    //         System.out.println("Conteúdo: " + fullContent);
-
-    //         // Criando e adicionando o DTO
-    //         ResponseDTO responseDTO = new ResponseDTO(title, newsUrl);
-    //         responseDTO.setContent(fullContent.toString());
-    //         responseDTO.setDate(datePublished);
-
-    //         responseDTOS.add(responseDTO);
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
+            if (!fullContent.toString().contains("amanhã")) {
+                System.out.println("amanhã");
+                return;
+            }
+    
+            String title = newsPage.select(tags.get("title")).text();
+            String datePublished = newsPage.select(tags.get("date")).attr("content");
+    
+            System.out.println("Url: " + newsUrl);
+            System.out.println("Título: " + title);
+            System.out.println("Conteúdo: " + fullContent);
+            System.out.println("Data: " + datePublished);
+    
+            tags.put("urlNoticiaSalva", newsUrl);
+    
+        } catch (IOException e) {
+            System.out.println("Erro ao acessar o link: " + newsUrl);
+            e.printStackTrace();
+        }
+    }
 }
