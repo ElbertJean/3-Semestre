@@ -1,4 +1,4 @@
-use venda2;
+use venda;
 create table departamento
 (dep_id int primary key,
  dep_descricao varchar(30));
