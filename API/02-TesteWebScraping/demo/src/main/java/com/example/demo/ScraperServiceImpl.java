@@ -102,8 +102,8 @@ public class ScraperServiceImpl implements ScraperService {
                 fullContent.append(content.text()).append(System.lineSeparator());
             }
 
-            if (!fullContent.toString().contains("amanhã")) {
-                System.out.println("amanhã");
+            if (!fullContent.toString().contains("clientes")) {
+                System.out.println("nao tem clientes");
                 return;
             }
     
