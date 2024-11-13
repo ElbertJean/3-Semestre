@@ -3,6 +3,7 @@ import styles from './Layout.module.css'
 
 import NavBar from '../NavBar/NavBar.component';
 import WhatsApp from '../WhatsApp/WhatsApp.component';
+import Music from '../Music/Music.component';
 
 function Layout({ children }) {
     return (
@@ -12,6 +13,7 @@ function Layout({ children }) {
                 {children}
             </div>
             <WhatsApp />
+            <Music />
         </div>
     )
 }
