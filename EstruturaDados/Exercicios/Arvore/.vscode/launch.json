@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/elber/Desktop/Desligar/GitHub/3-Semestre/EstruturaDados/Exercicios/Cezita",
-      "program": "c:/Users/elber/Desktop/Desligar/GitHub/3-Semestre/EstruturaDados/Exercicios/Cezita/build/Debug/outDebug",
+      "cwd": "c:/Users/elber/Desktop/Desligar/GitHub/3-Semestre/EstruturaDados/Exercicios/Fila",
+      "program": "c:/Users/elber/Desktop/Desligar/GitHub/3-Semestre/EstruturaDados/Exercicios/Fila/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

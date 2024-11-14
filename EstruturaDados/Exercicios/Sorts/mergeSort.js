@@ -1,41 +1,28 @@
-function mergeSort(array) {
-  if (array.length <= 1) {
-    return array;
-  }
+function mergeSort(array, start = 0, end = array.length - 1) {
+  if (start >= end) return;
 
-  // Dividir o array ao meio
-  const middle = Math.floor(array.length / 2);
-  const leftArray = array.slice(0, middle);
-  const rightArray = array.slice(middle);
+  const middle = Math.floor((start + end) / 2);
 
-  // Recursivamente dividir e ordenar as metades
-  return merge(mergeSort(leftArray), mergeSort(rightArray));
+  mergeSort(array, start, middle);
+  mergeSort(array, middle + 1, end);
+
+  merge(array, start, middle, end);
 }
 
-function merge(leftArray, rightArray) {
-  let sortedArray = [];
-  let leftIndex = 0;
-  let rightIndex = 0;
+function merge(array, start, middle, end) {
+  const aux = array.slice(start, end + 1);
+  let i = 0, j = middle - start + 1, k = start;
 
-  // Combinar os arrays de forma ordenada
-  while (leftIndex < leftArray.length && rightIndex < rightArray.length) {
-    if (leftArray[leftIndex] < rightArray[rightIndex]) {
-      sortedArray.push(leftArray[leftIndex]);
-      leftIndex++;
-    } else {
-      sortedArray.push(rightArray[rightIndex]);
-      rightIndex++;
-    }
+  while (i <= middle - start && j < aux.length) {
+    array[k++] = aux[i] <= aux[j] ? aux[i++] : aux[j++];
   }
 
-  // Concatenar o restante dos elementos
-  return sortedArray
-    .concat(leftArray.slice(leftIndex))
-    .concat(rightArray.slice(rightIndex));
+  while (i <= middle - start) {
+    array[k++] = aux[i++];
+  }
 }
 
-// Exemplo de uso
 const array = [38, 27, 43, 3, 9, 82, 10];
 console.log("Array original:", array);
-const sortedArray = mergeSort(array);
-console.log("Array ordenado:", sortedArray);
+mergeSort(array);
+console.log("Array ordenado:", array);
