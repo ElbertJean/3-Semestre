@@ -10,6 +10,8 @@ function RouterRoutes() {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Home />} />
+                <Route path='/register' element={<Register />} />
+                <Route path='/products' element={<Products />} />
             </Routes>
         </BrowserRouter>
     )
