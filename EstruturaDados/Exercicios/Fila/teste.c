@@ -21,7 +21,7 @@ void adicionarNaFila(Fila **primeiro, Fila **ultimo, int valor) {
 
 void retirarDaFila(Fila **primeiro, Fila **ultimo) {
   if (*primeiro == NULL) {
-    *ultimo = NULL;  
+    *ultimo = NULL;
   }
   Fila *retirar = *primeiro;
   *primeiro = retirar->proximo;
@@ -55,6 +55,5 @@ int main() {
   retirarDaFila(&primeiro, &ultimo);
   retirarDaFila(&primeiro, &ultimo);
   retirarDaFila(&primeiro, &ultimo);
-  // retirarDaFila(&primeiro, &ultimo);
   imprimir(&primeiro);
 }
