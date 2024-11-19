@@ -31,13 +31,6 @@ void imprimir(Arvore *raiz) {
     }
 }
 
-Arvore *encontrarMaior(Arvore *raiz) {
-    while (raiz->noDireito != NULL) {
-        raiz = raiz->noDireito;
-    }
-    return raiz;
-}
-
 Arvore **buscar(Arvore **raiz, int valor) {
     if (*raiz == NULL) return NULL;
 
@@ -53,54 +46,68 @@ Arvore **buscar(Arvore **raiz, int valor) {
 int remover(Arvore **no) {
     if (*no == NULL) return -1;
 
-    int valorRemovido = (*no)->valor; 
-    Arvore *temp;
+    int valorRemovido = (*no)->valor;
+
     if ((*no)->noEsquerdo == NULL && (*no)->noDireito == NULL) {
         free(*no);
         *no = NULL;
     } else if ((*no)->noDireito == NULL) {
-        temp = (*no)->noEsquerdo;
+        Arvore *temp = (*no)->noEsquerdo;
         free(*no);
         *no = temp;
     } else if ((*no)->noEsquerdo == NULL) {
-        temp = (*no)->noDireito;
+        Arvore *temp = (*no)->noDireito;
         free(*no);
         *no = temp;
     } else {
-        temp = encontrarMaior((*no)->noEsquerdo);
-        int maiorValor = temp->valor;
+        Arvore **maior = &(*no)->noEsquerdo;
+        Arvore **paiMaior = NULL;
 
-        remover(buscar(&(*no)->noEsquerdo, maiorValor));
+        while ((*maior)->noDireito != NULL) {
+            paiMaior = maior;
+            maior = &(*maior)->noDireito;
+        }
 
-        (*no)->valor = maiorValor;
-        
+        Arvore *temp = *maior;
+
+        if (paiMaior != NULL) {
+            (*paiMaior)->noDireito = temp->noEsquerdo;
+        } else {
+            (*no)->noEsquerdo = temp->noEsquerdo;
+        }
+
+        temp->noEsquerdo = (*no)->noEsquerdo;
+        temp->noDireito = (*no)->noDireito;
+
+        free(*no);
+        *no = temp;
     }
+
     return valorRemovido;
 }
+
 
 int main() {
     Arvore *raiz = NULL;
 
-    adicionar(&raiz, 10);
-    adicionar(&raiz, 7);
-    adicionar(&raiz, 20);
-    adicionar(&raiz, 2);
+    adicionar(&raiz, 30);
     adicionar(&raiz, 15);
-    adicionar(&raiz, 5);
+    adicionar(&raiz, 20);
+    adicionar(&raiz, 25);
+    adicionar(&raiz, 22);
+    adicionar(&raiz, 54);
+    adicionar(&raiz, 37);
+    adicionar(&raiz, 45);
+    adicionar(&raiz, 57);
 
     printf("Árvore inicial:\n");
     imprimir(raiz);
     printf("\n");
 
-    printf("Valor removido: %d\n", remover(buscar(&raiz, 10)));
+    printf("Valor removido: %d\n", remover(buscar(&raiz, 30)));
 
     printf("Árvore após remover:\n");
     imprimir(raiz);
 
     return 0;
 }
-
-
-// aux = busca_pai(10)
-
-// remove (aux->valor);
