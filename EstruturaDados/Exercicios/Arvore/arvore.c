@@ -38,37 +38,44 @@ Arvore *encontrarMaior(Arvore *raiz) {
     return raiz;
 }
 
-int remover(Arvore **raiz, int valor) {
-    if (*raiz == NULL) {
-        printf("Valor %d não encontrado na árvore.\n", valor);
-        return -1;
-    }
+Arvore **buscar(Arvore **raiz, int valor) {
+    if (*raiz == NULL) return NULL;
 
-    if (valor < (*raiz)->valor) {
-        remover(&(*raiz)->noEsquerdo, valor);
-    } else if (valor > (*raiz)->valor) {
-        remover(&(*raiz)->noDireito, valor);
+    if (valor == (*raiz)->valor) {
+        return raiz;
+    } else if (valor < (*raiz)->valor) {
+        return buscar(&(*raiz)->noEsquerdo, valor);
     } else {
-        int valorRemovido = (*raiz)->valor; 
-        Arvore *temp;
-        if ((*raiz)->noEsquerdo == NULL && (*raiz)->noDireito == NULL) {
-            free(*raiz);
-            *raiz = NULL;
-        } else if ((*raiz)->noDireito == NULL) {
-            temp = (*raiz)->noEsquerdo;
-            free(*raiz);
-            *raiz = temp;
-        } else if ((*raiz)->noEsquerdo == NULL) {
-            temp = (*raiz)->noDireito;
-            free(*raiz);
-            *raiz = temp;
-        } else {
-            temp = encontrarMaior((*raiz)->noEsquerdo);
-            (*raiz)->valor = temp->valor;
-            remover(&(*raiz)->noEsquerdo, temp->valor);
-        }
-        return valorRemovido;
+        return buscar(&(*raiz)->noDireito, valor);
     }
+}
+
+int remover(Arvore **no) {
+    if (*no == NULL) return -1;
+
+    int valorRemovido = (*no)->valor; 
+    Arvore *temp;
+    if ((*no)->noEsquerdo == NULL && (*no)->noDireito == NULL) {
+        free(*no);
+        *no = NULL;
+    } else if ((*no)->noDireito == NULL) {
+        temp = (*no)->noEsquerdo;
+        free(*no);
+        *no = temp;
+    } else if ((*no)->noEsquerdo == NULL) {
+        temp = (*no)->noDireito;
+        free(*no);
+        *no = temp;
+    } else {
+        temp = encontrarMaior((*no)->noEsquerdo);
+        int maiorValor = temp->valor;
+
+        remover(buscar(&(*no)->noEsquerdo, maiorValor));
+
+        (*no)->valor = maiorValor;
+        
+    }
+    return valorRemovido;
 }
 
 int main() {
@@ -85,13 +92,15 @@ int main() {
     imprimir(raiz);
     printf("\n");
 
-    printf("Valor removido: %d\n", remover(&raiz, 10));
-    remover(&raiz, 100);
-    remover(&raiz, 15);
-    remover(&raiz, 5);
+    printf("Valor removido: %d\n", remover(buscar(&raiz, 10)));
 
-    printf("Árvore após remoções:\n");
+    printf("Árvore após remover:\n");
     imprimir(raiz);
 
     return 0;
 }
+
+
+// aux = busca_pai(10)
+
+// remove (aux->valor);
